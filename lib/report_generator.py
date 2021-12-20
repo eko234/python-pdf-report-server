@@ -1,0 +1,62 @@
+from weasyprint import HTML, CSS
+from weasyprint.text.fonts import FontConfiguration
+
+h = """<!DOCTYPE html>
+<html>
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+<body>
+
+<h2>A basic HTML table</h2>
+
+<table style="width:100%">
+  <tr>
+    <th>Company</th>
+    <th>Contact</th>
+    <th>Country</th>
+  </tr>
+  <tr>
+    <td>Alfreds Futterkiste</td>
+    <td>Maria Anders</td>
+    <td>Germany</td>
+  </tr>
+  <tr>
+    <td>Centro comercial Moctezuma</td>
+    <td>Francisco Chang</td>
+    <td>Mexico</td>
+  </tr>
+</table>
+
+<p>To undestand the example better, we have added borders to the table.</p>
+
+</body>
+</html>"""
+font_config = FontConfiguration()
+html = HTML(string=h)
+
+
+
+
+css = CSS(string='''
+    @font-face {
+        font-family: Gentium;
+        src: url(http://example.com/fonts/Gentium.otf);
+    }
+    h1 { font-family: Gentium }''', font_config=font_config)
+html.write_pdf(
+    '/tmp/example.pdf', stylesheets=[css],
+    font_config=font_config)
+
+class ReportGenerator:
+  def __init__(self, formats_dir):
+    self.formats_dir = formats_dir
+
+  def generate_report(self, format, data):
+    """
+    Generates a pdf report based on an html <format>
+    populating it with <data>
+    """
+    return "shamowne"
