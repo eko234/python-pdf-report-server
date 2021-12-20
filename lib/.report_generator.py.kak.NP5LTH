@@ -49,7 +49,7 @@ html.write_pdf(
     font_config=font_config)
 
 class ReportGenerator:
-  def __init__(self, formats_dir, template_engine):
+  def __init__(self, formats_dir, template_engine, pdf_engine):
     self.formats_dir = formats_dir
     self.template_engine = template_engine
 
