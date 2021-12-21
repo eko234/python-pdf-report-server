@@ -1,0 +1,28 @@
+<!doctype html>
+<title>Tax Report</title>
+<link rel=stylesheet href="{{ url_for('static', filename='tax.css') }}" />
+<p>Hello, {{ data.name }}!</p>
+<p> This is your tax report </p>
+
+<br>
+
+<p> Applied taxes: ? </p>
+
+<br>
+
+<table>
+  <tr>
+    <th> Property </th>
+    <th> Raw Income </th>
+    <th> Tax Deduction </th>
+    <th> Final Income </th>
+  </tr>
+  {% for property in data.properties %}
+    <tr>
+      <td> {{property.name}} </td>
+      <td> {{property.raw_income}} </td>
+      <td> {{property.tax_deduction}} </td>
+      <td> {{property.final_income}} </td>
+    </tr>
+  {% endfor %}
+</table>

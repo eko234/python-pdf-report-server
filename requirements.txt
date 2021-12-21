@@ -1,2 +1,3 @@
-bottle
 weasyprint
+flask
+flask_weasyprint

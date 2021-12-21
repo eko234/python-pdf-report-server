@@ -1,0 +1,14 @@
+<!doctype html>
+<title>Hello</title>
+<p>Hello, {{ data.name }}!</p>
+{% for entry in data.entries %}
+  <tr>
+      <td> {{entry}} </td>
+  </tr>
+{% endfor %}
+<ul>
+  {% for nig in data.nag%}
+    <li> {{nig}} </li>
+  {% endfor %}
+</ul>
+<p> BYE </p>

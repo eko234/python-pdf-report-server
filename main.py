@@ -1,28 +1,24 @@
-from bottle import route, run, get, post, request
+from flask import Flask, render_template, url_for, request
+from flask_weasyprint import HTML, render_pdf
 from lib.args import get_args
-from lib.report_generator import ReportGenerator
-from lib.template import Template
-import os.path
-from jinja2 import Template
+import sys
 
 args = get_args()
 
-if not os.path.isdir(args.formats_dir):
-  raise Exception ("""
-    Do you think it makes sense to run when I have no formats
-    to work with? get your shit together please.
-  """)
+app = Flask(__name__)
 
-report_generator = ReportGenerator(
-  formats_dir=args.formats_dir,
-  template_engine=Template
-)
+def prints(thing):
+  print(thing, file=sys.stderr)
 
-@route('/generate_report/<format>', method="POST")
-def generate_report_route(format):
+@app.route('/generate_report/<report>', methods=["POST"])
+def hello_pdf(report):
   data = request.json
-  if not isinstance(data, list):
-    raise Exception("... I need lists to work dude.")
-  return report_generator.generate_report(format=format, data=data)
+  html = render_template(f'{report}.html', data=data)
+  res = render_pdf(HTML(string=html))
+  pdf_text = res.data
+  with open('somefile.pdf', 'wb') as the_file:
+    the_file.write(pdf_text)
+  return render_pdf(HTML(string=html))
 
-run(host=args.host, port=args.port, debug=True)
+if __name__ == "__main__":
+  app.run(host=args.host, port=args.port)

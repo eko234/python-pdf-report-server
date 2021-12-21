@@ -1,9 +1,0 @@
-###
-### POST TEST
-POST http://localhost:8090/generate_report/shamowne
-Content-Type: application/json
-
-[{
-  "suck": "my duck"
-}]
-###
